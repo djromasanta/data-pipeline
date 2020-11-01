@@ -23,7 +23,13 @@ app.use(function(req, res, next) {
 app.use('/main/rescuetime', rescuetime);
 app.use('/main/fitbit', fitbit);
 
+app.get('/', function(req, res) {
+  res.send({
+    "status": 200,
+    "message": "Welcome to Data Pipeline!"
+});
 
+});
 
 
 module.exports = app;
