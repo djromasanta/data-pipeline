@@ -1,0 +1,26 @@
+[
+    {
+        "api_name": "RescueTime",
+        "api_key": "B639SMZzd7TWbte8rWyTBK3w49nTBoyY3RqeToJe",
+        "api_endpoints": ["https://www.rescuetime.com/anapi/data","https://www.rescuetime.com/anapi/daily_summary_feed"],
+        "api_date_param": ["restrict_begin", "restrict_end"]
+    },
+    {
+        "api_name": "Oura",
+        "api_key": "",
+        "api_endpoints": [],
+        "api_date_param": []
+    },
+    {
+        "api_name": "ResMed",
+        "api_key": "",
+        "api_endpoints": [],
+        "api_date_param": []
+    },
+    {
+        "api_name": "FitBit",
+        "api_key": "",
+        "api_endpoints": [],
+        "api_date_param": []
+    }
+]

@@ -1,0 +1,22 @@
+{
+  "name": "data-pipeline",
+  "version": "1.0.0",
+  "description": "Life Data Tracker Tool",
+  "main": "app.js",
+  "scripts": {
+    "test": "app",
+    "start": "node app.js"
+  },
+  "author": "Renz Ladroma | DJ Romasanta",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fitbit-node": "^2.2.0",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "moment": "^2.29.1",
+    "mysql": "^2.18.1",
+    "request": "^2.88.2"
+  }
+}
