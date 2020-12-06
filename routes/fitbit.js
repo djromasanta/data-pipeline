@@ -16,8 +16,8 @@ const utilities = new UtilSource();
 // Fitbit Client
 const FitbitApiClient = require("fitbit-node");
 const client = new FitbitApiClient({
-    clientId: "22BZTD",
-    clientSecret: "802038298b4ffb063bda91217d6df550",
+    clientId: "22C34M",
+    clientSecret: "c1e297257be3ddf33e8a4c03f837e175",
   apiVersion: '1.2'
 });
 

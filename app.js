@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 
 
 /* ROUTES */
-app.use('/main/rescuetime', rescuetime);
+//app.use('/main/rescuetime', rescuetime);
 app.use('/main/fitbit', fitbit);
 //app.use('/main/oura', oura);
 
