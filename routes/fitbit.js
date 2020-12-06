@@ -46,6 +46,8 @@ router.get("/oauthcallback", (req, res) => {
         token = result.access_token;
         console.log(token);
         client.get("/profile.json", result.access_token).then(results => {
+        console.log(results[0]);
+        
         res.send(results[0]);
         }).catch(err => {
         res.status(err.status).send(err);
