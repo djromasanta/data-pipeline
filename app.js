@@ -35,6 +35,7 @@ app.get('/', function(req, res) {
 
 module.exports = app;
 
-app.listen(process.env.PORT);
-
-console.log(`Your port is ${process.env.PORT}`);
+var server = app.listen(process.env.PORT || 80, function () {
+  var port = server.address().port;
+  console.log('Listening at port ' + port);
+});
