@@ -17,6 +17,11 @@ class Utilities {
         return yesterday.format("YYYY-MM-DD");
     }
 
+    getSecondPreviousDate(){
+        var yesterday = moment().subtract(2, 'days');
+        return yesterday.format("YYYY-MM-DD");
+    }
+
 }
 
 module.exports = Utilities;

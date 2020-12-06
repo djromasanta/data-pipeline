@@ -10,9 +10,9 @@ class DBConnection {
     async connectToDb(){
         try { 
             var con = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "",
+                host: "mysql.agilatrading.com",
+                user: "renzladromacom",
+                password: "Mfe*f?BA",
                 database: "data_pipeline",
                 port: 3306
             });
@@ -31,12 +31,31 @@ class DBConnection {
         try { 
             var con = await this.connectToDb();
             var cols = await this.getColumnName(table_name);
-              
+            console.log(cols)
             con.query(`INSERT INTO ${table_name} (${cols}) VALUES ${data}`, function (err, result, fields) {
                 if (err) throw err;
-                console.log(result);
+                //console.log(result);
                 
                 return result;
+            });
+        } catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+        
+    }
+
+    async deleteData(table_name, data) {
+
+        try { 
+            var con = await this.connectToDb();
+            //var cols = await this.getColumnName(table_name);
+              
+            con.query(`DELETE FROM ${table_name} WHERE activity_date IN (${data})`, function (err, result, fields) {
+                if (err) throw err;
+                console.log(result);
+                //return result;
             });
         } catch (error) {
 
@@ -60,6 +79,7 @@ class DBConnection {
                 var result = rows[key];      
                 columnName = columnName + result.client_column_name + ","
             });
+
             return columnName.slice(0, -1);
             
 		} catch (error) {

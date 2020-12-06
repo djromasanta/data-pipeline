@@ -12,6 +12,7 @@ const data_processor = new Data_Proc();
 const UtilSource = require('../controller/utilities');
 const utilities = new UtilSource(); 
 
+
 //Rescue Time Client
 router.get('/analytics', function(req, res) {
     var apiDetails = utilities.getApiInfo(api_config, "RescueTime");
@@ -23,10 +24,13 @@ router.get('/analytics', function(req, res) {
     request(apiEndpoint+apiKey+apiDate, { json: true }, function (err, response, body) {
         if (err) { return console.log(err); }
         
-        var processed_data = data_processor.rescueTimeAnalytics(body.rows, utilities.getPreviousDate());
-
+        if(body.rows.length > 0){
+            var processed_data = data_processor.rescueTimeAnalytics(body.rows, utilities.getPreviousDate());
+        }
+        
         res.send({
-            "status": 200
+            "status": 200,
+            "result": body
         });
     });
 
@@ -45,10 +49,13 @@ router.get('/daily_summary', function(req, res) {
         
         //console.log(Object.entries(body[0]));
         //console.log("heeere", body[0]);
-        var processed_data = data_processor.rescueTimeDailySummary(body, utilities.getPreviousDate());
+        if(body.length > 0){
+            var processed_data = data_processor.rescueTimeDailySummary(body, utilities.getPreviousDate());
+        }
 
         res.send({
-            "status": 200
+            "status": 200,
+            "result": body
         });
     });
 
