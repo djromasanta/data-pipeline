@@ -12,7 +12,9 @@ const data_processor = new Data_Proc();
 const UtilSource = require('../controller/utilities');
 const utilities = new UtilSource(); 
 
+//B639SMZzd7TWbte8rWyTBK3w49nTBoyY3RqeToJe
 
+//client - BUBL74NYVIRNCIT7TFBW5PQBDAQA7KCQ
 //Rescue Time Client
 router.get('/analytics', function(req, res) {
     var apiDetails = utilities.getApiInfo(api_config, "RescueTime");
