@@ -10,10 +10,10 @@ class DBConnection {
     async connectToDb(){
         try { 
             var con = mysql.createConnection({
-                host: "mysql.dashboard.patrifriedman.com",
-                user: "dh_4xgs38",
-                password: "ib6M2yY6",
-                database: "datapipeline",
+                host: "mysql.agilatrading.com",
+                user: "renzladromacom",
+                password: "Mfe*f?BA",
+                database: "data_pipeline",
                 port: 3306
             });
     
