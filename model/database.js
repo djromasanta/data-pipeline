@@ -46,6 +46,52 @@ class DBConnection {
         
     }
 
+    async insertFitbitToken(accessToken, refreshToken) {
+
+        try { 
+            var con = await this.connectToDb();
+            
+           
+            con.query(`INSERT INTO fitbit_token_tbl (access_token, refresh_token, date_created) VALUES ('${accessToken}', '${refreshToken}', NOW())`, function (err, result, fields) {
+                if (err) throw err;
+                //console.log(result);
+                
+                return result;
+            });
+        } catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+        
+    }
+
+    async getFitbitToken() {
+
+        try {
+            const con = await this.connectToDb();
+            // node native promisify
+            const query = util.promisify(con.query).bind(con);
+            var columnName = "";
+            var tokens = {};
+            const rows = await query(`SELECT * FROM fitbit_token_tbl ORDER BY id DESC LIMIT 1`);
+            
+            Object.keys(rows).forEach(function(key) {
+                var result = rows[key];      
+                //columnName = columnName + result.client_column_name + ",";
+                tokens = {"access_token": result.access_token, "refresh_token": result.refresh_token}
+            });
+
+            return tokens;
+            
+		} catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+  
+    }
+
     async deleteData(table_name, data) {
 
         try { 
@@ -87,9 +133,7 @@ class DBConnection {
 			console.log(error);
 			return 1;
 		}
-
-        
-       
+  
     }
 
 }

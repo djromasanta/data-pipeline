@@ -50,6 +50,19 @@ class DataProcessor {
 
 
     /** Start Fitbit **/
+
+    async getFitbitToken(access_token, refresh_token){
+        
+        var tokens = await dbCon.getFitbitToken();
+        return tokens;
+    }
+
+    async fitbitToken(access_token, refresh_token){
+        
+        await dbCon.insertFitbitToken(access_token, refresh_token);
+    }
+
+
     async fitbitHeartRate(data, date){
         var values = "";
         for(var i=0; i < data.length; i++) {
