@@ -34,12 +34,12 @@ const client = new FitbitApiClient({
 // redirect the user to the Fitbit authorization page
 router.get("/authorize", (req, res) => {
     // request access to the user's activity, heartrate, location, nutrion, profile, settings, sleep, social, and weight scopes
-    res.redirect(client.getAuthorizeUrl('activity heartrate location nutrition profile settings sleep social weight', 'http://https://ld-fitbit-api.herokuapp.com/main/fitbit/oauthcallback'));
+    res.redirect(client.getAuthorizeUrl('activity heartrate location nutrition profile settings sleep social weight', 'https://ld-fitbit-api.herokuapp.com/main/fitbit/oauthcallback'));
 });
 
 router.get("/oauthcallback", (req, res) => {
     // exchange the authorization code we just received for an access token
-    client.getAccessToken(req.query.code, 'http://https://ld-fitbit-api.herokuapp.com/main/fitbit/oauthcallback').then(result => {
+    client.getAccessToken(req.query.code, 'https://ld-fitbit-api.herokuapp.com/main/fitbit/oauthcallback').then(result => {
         // use the access token to fetch the user's profile information
         token = result.access_token;
 
