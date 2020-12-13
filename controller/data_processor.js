@@ -134,6 +134,23 @@ class DataProcessor {
         await this.delay();
         await dbCon.insertData("oura_sleep_tbl", values.slice(0, -1));
     }
+
+    async ouraActivity(data, date){
+        var values = "";
+        for(var i=0; i < data.length; i++) {
+            values = values + `('${data[i].average_met}', '${data[i].cal_active}', '${data[i].cal_total}', '${data[i].class_5min}', '${data[i].daily_movement}', '${data[i].day_end}', '${data[i].day_start}', 
+                                '${data[i].high}', '${data[i].inactive}', '${data[i].inactivity_alerts}', '${data[i].low}', '${data[i].medium}', '${data[i].met_min_high}', '${data[i].met_min_inactive}', 
+                                '${data[i].met_min_low}', '${data[i].met_min_medium}', '${data[i].non_wear}', '${data[i].rest}', '${data[i].rest_mode_state}', '${data[i].score}', '${data[i].score_meet_daily_targets}', 
+                                '${data[i].score_move_every_hour}', '${data[i].score_recovery_time}', '${data[i].score_stay_active}', '${data[i].score_training_frequency}', '${data[i].score_training_volume}', '${data[i].steps}', '${data[i].summary_date}', 
+                                '${data[i].target_calories}', '${data[i].target_km}', '${data[i].target_miles}', '${data[i].timezone}', '${data[i].to_target_km}', '${data[i].to_target_miles}', '${data[i].total}', '${date}'
+            ),`;
+
+        }
+       
+        await dbCon.deleteData("oura_activity_tbl", `'${date}'`);
+        await this.delay();
+        await dbCon.insertData("oura_activity_tbl", values.slice(0, -1));
+    }
     /** End Oura **/
 
     async delay() {

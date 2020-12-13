@@ -20,14 +20,14 @@ router.get('/analytics', function(req, res) {
     var apiDetails = utilities.getApiInfo(api_config, "RescueTime");
     var apiEndpoint = apiDetails.api_endpoints[0]+"?";
     var apiKey = "key="+apiDetails.api_key;
-    var apiDate = "&"+apiDetails.api_date_param[0]+"="+utilities.getPreviousDate()+"&"+apiDetails.api_date_param[1]+"="+utilities.getPreviousDate();
+    var apiDate = "&"+apiDetails.api_date_param[0]+"="+"2020-11-17"+"&"+apiDetails.api_date_param[1]+"="+utilities.getPreviousDate();
 
 
     request(apiEndpoint+apiKey+apiDate, { json: true }, function (err, response, body) {
         if (err) { return console.log(err); }
         
         if(body.rows.length > 0){
-            var processed_data = data_processor.rescueTimeAnalytics(body.rows, utilities.getPreviousDate());
+            var processed_data = data_processor.rescueTimeAnalytics(body.rows, "2020-11-17");
         }
         
         res.send({

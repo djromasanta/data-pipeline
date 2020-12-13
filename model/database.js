@@ -10,10 +10,10 @@ class DBConnection {
     async connectToDb(){
         try { 
             var con = mysql.createConnection({
-                host: "mysql.agilatrading.com",
-                user: "renzladromacom",
-                password: "Mfe*f?BA",
-                database: "data_pipeline",
+                host: "mysql.dashboard.patrifriedman.com",
+                user: "dh_4xgs38",
+                password: "ib6M2yY6",
+                database: "datapipeline",
                 port: 3306
             });
     
@@ -31,7 +31,7 @@ class DBConnection {
         try { 
             var con = await this.connectToDb();
             var cols = await this.getColumnName(table_name);
-            console.log(cols)
+         
             con.query(`INSERT INTO ${table_name} (${cols}) VALUES ${data}`, function (err, result, fields) {
                 if (err) throw err;
                 //console.log(result);
@@ -123,7 +123,7 @@ class DBConnection {
             
             Object.keys(rows).forEach(function(key) {
                 var result = rows[key];      
-                columnName = columnName + result.client_column_name + ","
+                columnName = columnName + "`" + result.client_column_name + "`" + ","
             });
 
             return columnName.slice(0, -1);

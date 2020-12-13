@@ -16,8 +16,6 @@ const utilities = new UtilSource();
 //Oura Client
 var oura = require('oura');
 
-var accessToken = 'BUBL74NYVIRNCIT7TFBW5PQBDAQA7KCQ';
-
 let start = utilities.getSecondPreviousDate();
 let end = utilities.getPreviousDate();
 
@@ -31,6 +29,24 @@ router.get('/sleep', function(req, res) {
 
         if(sleep["sleep"].length > 0){
           var processed_data = data_processor.ouraSleepRate(sleep["sleep"], start);
+        }
+        
+    }).catch(function(error){
+        console.error(error)
+        
+    })
+
+});
+
+router.get('/activity', function(req, res) {
+    var apiDetails = utilities.getApiInfo(api_config, "Oura");
+    var client = new oura.Client(apiDetails.api_key);
+
+    client.activity(start, end).then(function (activity) {
+        res.send(activity);
+
+        if(activity["activity"].length > 0){
+          var processed_data = data_processor.ouraActivity(activity["activity"], start);
         }
         
     }).catch(function(error){
