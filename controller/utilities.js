@@ -39,6 +39,12 @@ class Utilities {
         return hours+":"+minutes+":"+seconds;
     }
 
+    formatCategory(category){
+        category = category.replace(/_|percentage/g,' ');
+        category = category.toUpperCase();
+        return category;
+    }
+
 }
 
 module.exports = Utilities;

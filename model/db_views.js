@@ -14,7 +14,7 @@ class DBViews {
         
     }
     
-    async getDashboardScores(column, table, con_date, conditions, cond_value, cond_symbol) {
+    async getDashboardScores(column, table, con_date, conditions, cond_value, cond_symbol, date_val) {
 
         try {
             const con = await dbCon.connectToDb();
@@ -24,19 +24,78 @@ class DBViews {
 
             let date_cond = `${con_date} = (SELECT MAX(${con_date}) FROM ${table} LIMIT 1)`;
             let other_cond = `AND ${conditions} ${cond_symbol} '${cond_value}'`;
+            
+            if(date_val != "" && date_val != "undefined"){
+                date_cond = `${con_date} LIKE '%${date_val}%'`;
+            } 
 
             if(conditions == ""){
                 other_cond = "";
             }
 
-            const rows = await query(`SELECT ${column} AS result FROM ${table} WHERE ${date_cond} ${other_cond}`);
+            console.log(`SELECT ${column} AS result FROM ${table} WHERE ${date_cond} ${other_cond} LIMIT 1`);
+            const rows = await query(`SELECT ${column} AS result FROM ${table} WHERE ${date_cond} ${other_cond} LIMIT 1`);
             
             Object.keys(rows).forEach(function(key) {
                 var result = rows[key];      
-                columnName = columnName + result.result + ","
+                columnName = result.result
             });
 
-            return columnName.slice(0, -1);
+            if(columnName == "" || columnName == null){
+                columnName = 0;
+            }
+            return columnName.toFixed(2);
+            
+		} catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+  
+    }
+
+    async getCategory(category, column, table, con_date, order, date_val) {
+
+        try {
+            const con = await dbCon.connectToDb();
+            // node native promisify
+            const query = util.promisify(con.query).bind(con);
+
+
+            let date_cond = `${con_date} = (SELECT MAX(${con_date}) FROM ${table} LIMIT 1)`;
+            let category_list = `AND summary_category 
+            IN (
+                'business_percentage',
+                'communication_and_scheduling_percentage',
+                'design_and_composition_percentage',
+                'entertainment_percentage',
+                'news_percentage',
+                'reference_and_learning_percentage',
+                'shopping_percentage',
+                'social_networking_percentage',
+                'software_development_percentage',
+                'utilities_percentage',
+                'uncategorized_percentage'
+                ) `;
+            let data = [];
+
+            if(date_val != "" && date_val != "undefined"){
+                date_cond = `${con_date} LIKE '%${date_val}%'`;
+            } 
+          
+            const rows = await query(`SELECT ${category} AS category, ${column} AS value 
+            FROM ${table} WHERE ${date_cond} ${category_list}
+            GROUP by ${category} ORDER BY category ${order};`);
+            
+            Object.keys(rows).forEach(function(key) {
+                var result = rows[key];
+                data.push({
+                    "category": utilities.formatCategory(result.category),
+                    "value": result.value.toFixed(2) + "%"
+                })
+            });
+
+            return data;
             
 		} catch (error) {
 
@@ -67,6 +126,32 @@ class DBViews {
                     "category": result.category,
                     "value": utilities.getTimeformat(result.value)
                 })
+            });
+
+            return data;
+            
+		} catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+  
+    }
+
+    async getDates(dateType) {
+
+        try {
+            const con = await dbCon.connectToDb();
+            // node native promisify
+            const query = util.promisify(con.query).bind(con);
+
+            let data = [];
+          
+            const rows = await query(`SELECT LEFT(summary_date, ${dateType}) AS result FROM oura_activity_tbl GROUP BY LEFT(summary_date, ${dateType}) ORDER BY result DESC;`);
+            
+            Object.keys(rows).forEach(function(key) {
+                var result = rows[key];
+                data.push(result.result)
             });
 
             return data;

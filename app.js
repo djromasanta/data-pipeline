@@ -39,7 +39,7 @@ app.use(function(req, res, next) {
 
 /* ROUTES FOR DATA EXTRACTOR */
 app.use('/main/rescuetime', rescuetime);
-//app.use('/main/fitbit', fitbit);
+app.use('/main/fitbit', fitbit);
 app.use('/main/oura', oura);
 /* END ROUTES FOR DATA EXTRACTOR */
 
