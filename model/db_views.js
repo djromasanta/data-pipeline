@@ -44,7 +44,7 @@ class DBViews {
             if(columnName == "" || columnName == null){
                 columnName = 0;
             }
-            return columnName.toFixed(2);
+            return Math.round(columnName);
             
 		} catch (error) {
 
@@ -91,7 +91,7 @@ class DBViews {
                 var result = rows[key];
                 data.push({
                     "category": utilities.formatCategory(result.category),
-                    "value": result.value.toFixed(2) + "%"
+                    "value": Math.round(result.value) + "%"
                 })
             });
 
@@ -164,6 +164,53 @@ class DBViews {
   
     }
 
+
+    //FOR DATA VIEW
+    async getClientInfo(){
+        try {
+            const con = await dbCon.connectToDb();
+            // node native promisify
+            const query = util.promisify(con.query).bind(con);
+            let data = [];
+          
+            const rows = await query(`SELECT DISTINCT client_name AS result FROM data_pipeline_tbl_cols;`);
+            
+            Object.keys(rows).forEach(function(key) {
+                var result = rows[key];
+                data.push(result.result)
+            });
+
+            return data;
+            
+		} catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+    }
+
+    async getTableInfo(table){
+        try {
+            const con = await dbCon.connectToDb();
+            // node native promisify
+            const query = util.promisify(con.query).bind(con);
+            let data = [];
+          
+            const rows = await query(`SELECT DISTINCT client_tbl_name AS result FROM data_pipeline_tbl_cols WHERE client_name = '${table}';`);
+            
+            Object.keys(rows).forEach(function(key) {
+                var result = rows[key];
+                data.push(result.result)
+            });
+
+            return data;
+            
+		} catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+    }
 }
 
 module.exports = DBViews;

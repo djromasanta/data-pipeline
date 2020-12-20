@@ -10,7 +10,9 @@ const app = express();
 const rescuetime = require('./routes/rescuetime');
 const fitbit = require('./routes/fitbit');
 const oura = require('./routes/oura');
-const views = require('./routes/view_endpoint');
+const home = require('./routes/home_endpoint');
+const data = require('./routes/data_endpoint');
+
 
 // const DBConnection = require('./model/database');
 // const dbCon = new DBConnection(); 
@@ -44,7 +46,8 @@ app.use('/main/oura', oura);
 /* END ROUTES FOR DATA EXTRACTOR */
 
 //VIEW ROUTES
-app.use('/main/v1', views);
+app.use('/main/v1', home);
+app.use('/main/v1', data);
 
 /* DASHBOARD ROUTES */
 app.get('/', function(req, res) {

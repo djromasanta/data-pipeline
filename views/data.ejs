@@ -16,13 +16,81 @@
                     
                 </div>
 
+                <div class="row">
+                    <div class="col-xl-3 col-md-1 mb-4">
+                        <label for="exampleSelect1">Data</label>
+                        <div class="form-group">
+                            <select class="form-control" id="client-option">
+                                
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="col-xl-3 col-md-1 mb-4">
+                        <label for="exampleSelect1">Category</label>
+                        <div class="form-group">
+                            <select class="form-control" id="table-option">
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="col-xl-3 col-md-1 mb-4">
+                        <label for="exampleSelect1">Date</label>
+                        <div class="form-group">
+                            <input class="form-control" id="date-input" type="date" name="date" placeholder="" value="">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                    <!-- DataTales Example -->
+                    <div class="col-xl-12 col-md-12 mb-4">
+                        
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Raw Data</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
                 
                 
             </div>
             <!-- /.container-fluid -->
 
         <%- include('partials/footer2.ejs') %>
-
-
-<script src="/js/endpoint/daily.js"></script>
+        <script src="/js/endpoint/data.js"></script>
 <%- include('partials/footer.ejs') %>
