@@ -39,6 +39,29 @@ router.get('/data/tables', function(req, res) {
 });
 
 
+router.get('/data/table_data', function(req, res) {
+    
+    var client = req.query.client;
+    var table = req.query.table;
+    var date_val = req.query.date;
+
+    var client_list = {
+        "RescueTime": "activity_date",
+        "Oura": "summary_date",
+        "Fitbit": "activity_date"
+    }
+
+
+    dbViews.getTableData(table, client_list[client], date_val).then(result => {
+        console.log(table, client_list[client], date_val)
+        res.send(result);
+        
+    });	
+
+
+});
+
+
 
 
 module.exports = router;

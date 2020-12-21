@@ -173,7 +173,7 @@ class DBViews {
             const query = util.promisify(con.query).bind(con);
             let data = [];
           
-            const rows = await query(`SELECT DISTINCT client_name AS result FROM data_pipeline_tbl_cols;`);
+            const rows = await query(`SELECT DISTINCT client_name AS result FROM data_pipeline_tbl_cols ORDER BY client_name;`);
             
             Object.keys(rows).forEach(function(key) {
                 var result = rows[key];
@@ -196,7 +196,10 @@ class DBViews {
             const query = util.promisify(con.query).bind(con);
             let data = [];
           
-            const rows = await query(`SELECT DISTINCT client_tbl_name AS result FROM data_pipeline_tbl_cols WHERE client_name = '${table}';`);
+            const rows = await query(`SELECT DISTINCT client_tbl_name AS result 
+                                        FROM data_pipeline_tbl_cols WHERE client_name = '${table}' 
+                                        AND client_tbl_name <> 'fitbit_sleep_tbl'
+                                        ORDER BY client_tbl_name;`);
             
             Object.keys(rows).forEach(function(key) {
                 var result = rows[key];
@@ -211,6 +214,50 @@ class DBViews {
 			return 1;
 		}
     }
+
+    async getTableData(table, con_date, date_val){
+        try {
+            const con = await dbCon.connectToDb();
+            // node native promisify
+            const query = util.promisify(con.query).bind(con);
+            let data = [];
+            let columns = [];
+            let final_result = {};
+            var result = "";
+            const rows = await query(`SELECT * FROM ${table} WHERE ${con_date} = '${date_val}'`);
+      
+            Object.keys(rows).forEach(function(key) {
+                result = rows[key];
+                
+                
+                data.push(Object.values(result));
+            });
+
+            var cols = Object.keys(result);
+            for(var i=0; i<cols.length; i++){
+                columns.push({"title": cols[i]})
+            }
+
+            final_result = {
+                "columns": columns,
+                "data": data
+            }
+
+            if(columns.length < 1){
+                return  {
+                    "columns": [{"title": "status"}],
+                    "data": ["No Data"]
+                }
+            }
+            return final_result;
+            
+		} catch (error) {
+
+			console.log(error);
+			return 1;
+		}
+    }
+
 }
 
 module.exports = DBViews;
