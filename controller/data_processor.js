@@ -153,6 +153,20 @@ class DataProcessor {
     }
     /** End Oura **/
 
+
+    async nomieData(data, date){
+        var values = `('${data.epoch}', '${data.start}', '${data.end}', '${data.offset}', '${data.tracker}', 
+                        '${data.value}', '${data.note}', '${data.lat}', '${data.lng}', '${data.location}', 
+                        '${data.score}', '${date}'
+                    ),`;
+       
+        // await dbCon.deleteData("oura_activity_tbl", `'${date}'`);
+        // await this.delay();
+        let result = await dbCon.insertData("nomie_app_tbl", values.slice(0, -1));
+        return result;
+    }
+
+
     async delay() {
         return new Promise((resolve, reject) => {
                 setTimeout(resolve, 1000);

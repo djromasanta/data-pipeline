@@ -65,6 +65,7 @@ function getData(date){
             $("#screen-time").text(result.screen_time);
             $("#activity-score").text(result.activity_score);
             $("#calories-burned").text(result.calories);
+            $("#mood-score").text(result.mood_score);
         }
     });
 

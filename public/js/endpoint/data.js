@@ -80,7 +80,7 @@ function getTableList(client){
         success: function(result){
             
             for(var i=0; i<result.length; i++){
-                html_block = `<option value="${result[i]}">${result[i]}</option>`;
+                html_block = `<option value="${result[i]}">${formatOption(result[i])}</option>`;
                 $("#table-option").append(html_block);
             }
             
@@ -89,4 +89,12 @@ function getTableList(client){
            
         }
     });
+}
+
+
+
+function formatOption(option){
+    option = option.replace(/_|tbl/g,' ');
+    option = option.toUpperCase();
+    return option;
 }

@@ -31,12 +31,15 @@ class DBConnection {
         try { 
             var con = await this.connectToDb();
             var cols = await this.getColumnName(table_name);
-         
             con.query(`INSERT INTO ${table_name} (${cols}) VALUES ${data}`, function (err, result, fields) {
-                if (err) throw err;
-                //console.log(result);
-                
+                if(err && err.code == "ER_DUP_ENTRY") {
+                    return err.code;
+                } else {
+                    if (err) throw err;
+                }
                 return result;
+                
+                
             });
         } catch (error) {
 

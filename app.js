@@ -1,21 +1,16 @@
 require('dotenv').config({path: __dirname + '/.env'});
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const path = require('path');
 const express = require('express');
 const app = express();
-
 
 //REQUIRED ROUTES
 const rescuetime = require('./routes/rescuetime');
 const fitbit = require('./routes/fitbit');
 const oura = require('./routes/oura');
+const nomie = require('./routes/nomie');
 const home = require('./routes/home_endpoint');
 const data = require('./routes/data_endpoint');
-
-
-// const DBConnection = require('./model/database');
-// const dbCon = new DBConnection(); 
 
 // set the view engine to ejs
 app.set('views', './views');
@@ -43,6 +38,7 @@ app.use(function(req, res, next) {
 app.use('/main/rescuetime', rescuetime);
 app.use('/main/fitbit', fitbit);
 app.use('/main/oura', oura);
+app.use('/main/nomie', nomie);
 /* END ROUTES FOR DATA EXTRACTOR */
 
 //VIEW ROUTES
@@ -88,14 +84,14 @@ app.get('/home', function(req, res) {
 app.get('/data', function(req, res) {
 	if (req.session.loggedin) {
 		  res.render('data');
-	  } else {
+	} else {
 		  res.render('login', {status: ""});
-	  }
+	}
 });
 
 app.get('/import', function(req, res) {
 	if (req.session.loggedin) {
-		  res.render('import');
+		  res.render('import', {status: ""});
 	  } else {
 		  res.render('login', {status: ""});
 	  }
@@ -108,10 +104,6 @@ app.get('/logout', function(req, res) {
 });
 
 
-app.get('/testdb', function(req, res) {
-	
-
-});
 
 module.exports = app;
 

@@ -12,6 +12,11 @@ class Utilities {
         return result;
     }
 
+    getDate(){
+        var today = moment();
+        return today.format("YYYY-MM-DD");
+    }
+
     getPreviousDate(){
         var yesterday = moment().subtract(1, 'days');
         return yesterday.format("YYYY-MM-DD");
@@ -38,6 +43,10 @@ class Utilities {
         };
         return hours+":"+minutes+":"+seconds;
     }
+
+    getNumberformat(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      }
 
     formatCategory(category){
         category = category.replace(/_|percentage/g,' ');

@@ -44,6 +44,8 @@ class DBViews {
             if(columnName == "" || columnName == null){
                 columnName = 0;
             }
+
+            con.end();
             return Math.round(columnName);
             
 		} catch (error) {
@@ -94,7 +96,7 @@ class DBViews {
                     "value": Math.round(result.value) + "%"
                 })
             });
-
+            con.end();
             return data;
             
 		} catch (error) {
@@ -128,6 +130,8 @@ class DBViews {
                 })
             });
 
+            con.end();
+
             return data;
             
 		} catch (error) {
@@ -154,6 +158,7 @@ class DBViews {
                 data.push(result.result)
             });
 
+            con.end();
             return data;
             
 		} catch (error) {
@@ -180,6 +185,7 @@ class DBViews {
                 data.push(result.result)
             });
 
+            con.end();
             return data;
             
 		} catch (error) {
@@ -206,6 +212,7 @@ class DBViews {
                 data.push(result.result)
             });
 
+            con.end();
             return data;
             
 		} catch (error) {
@@ -249,6 +256,8 @@ class DBViews {
                     "data": ["No Data"]
                 }
             }
+
+            con.end();
             return final_result;
             
 		} catch (error) {

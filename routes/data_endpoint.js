@@ -48,7 +48,8 @@ router.get('/data/table_data', function(req, res) {
     var client_list = {
         "RescueTime": "activity_date",
         "Oura": "summary_date",
-        "Fitbit": "activity_date"
+        "Fitbit": "activity_date",
+        "Nomie": "activity_date"
     }
 
 

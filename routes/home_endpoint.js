@@ -22,7 +22,8 @@ router.get('/daily', function(req, res) {
 					activity_score: "",
 					sleep_time: "",
                     screen_time: "",
-                    calories: ""
+                    calories: "",
+                    mood_score: ""
 
 	};
     //column, table, column date, conditions, cond_value
@@ -32,10 +33,10 @@ router.get('/daily', function(req, res) {
 		result.sleep_score = sleep_score + "%";
 
 		dbViews.getDashboardScores("AVG(summary_value)", "rescuetime_daily_summary_tbl", "activity_date", "summary_category", "productivity_pulse", "=", date).then(productivity_pulse => {
-			result.productivity_pulse = productivity_pulse;
+			result.productivity_pulse = utilities.getNumberformat(productivity_pulse);
 
 			dbViews.getDashboardScores("AVG(steps)", "oura_activity_tbl", "summary_date", "", "", "", date).then(steps => {
-				result.steps = steps;
+				result.steps = utilities.getNumberformat(steps);
 
 				dbViews.getDashboardScores("AVG(score)", "oura_activity_tbl", "summary_date", "", "", "", date).then(activity_score => {
 					result.activity_score = activity_score + "%";;
@@ -47,9 +48,15 @@ router.get('/daily', function(req, res) {
 							result.screen_time = utilities.getTimeformat(screen_time);
 
 							dbViews.getDashboardScores("AVG(cal_total)", "oura_activity_tbl", "summary_date", "", "", "", date).then(calories => {
-                                result.calories = calories;
+                                result.calories = utilities.getNumberformat(calories);
     
-                                res.send(result);
+                                dbViews.getDashboardScores("AVG(value)", "nomie_app_tbl", "start", "", "", "", date).then(mood_score => {
+                                    result.mood_score = utilities.getNumberformat(mood_score);
+        
+                                    //SELECT value FROM nomie_tbl WHERE tracker = 'mood' AND start = ''
+                                    res.send(result);
+                                });	
+
                             });	
 
 						});	

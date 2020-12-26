@@ -16,20 +16,35 @@
                     
                 </div>
 
+
                 <div class="row">
-                    <div class="col-xl-3 col-md-1 mb-4">
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                              </div>
-                              <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                              </div>
-                            </div>
+                    <div class="col-lg-5">
+                        <div class="p-5">
+                            <form class="user" action="/main/nomie/upload" enctype="multipart/form-data" method="post">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="file" class="form-control" name="file-upload" required>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input class="form-control btn-primary" type="submit" value="Upload">
+                                    </div>
+                                </div>
+                                <%if (status == "success") { %>
+                                    <div class="card bg-success text-white shadow">
+                                        <div class="card-body">
+                                            Uploaded Successfully!
+                                        </div>
+                                    </div>
+                                <% } %>
+                                <%if (status == "failed") { %>
+                                    <div class="card bg-danger text-white shadow">
+                                        <div class="card-body">
+                                            There's something wrong with the file.
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </form>
                         </div>
-                        
                     </div>
                 </div>
                 
